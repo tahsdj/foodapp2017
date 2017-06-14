@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<title>share your food</title>
+	<link rel="stylesheet" href="./css/screen.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.js"></script>
+
+</head>
+<body>
+<div id="app"></div>
+	<header>
+		<div class="container">
+			<div class="logo">
+				<img src = "images/logo_blue.png">
+			</div>
+			<form action="">
+				<input id = "search" placeholder="search">
+			</form>
+			<div id ="profileBox">
+				<div class="register">
+					<a>Signup</a>
+				</div>
+				<div class="login">
+					<a>Login</a>
+				</div>
+			</div>
+			<div id="nav-list-btn">
+				<img src="images/nav_list_white.png" alt="nav_list">
+			</div>
+		</div>
+		<div id = "rwdList">
+			<div class="login">
+				<a href="">登入</a>
+			</div>
+			<div class="register">
+				<a href="">註冊</a>
+			</div>
+			<div class="recommend">
+				<a href="">推薦</a>
+			</div>
+			<div class="near">
+				<a href="">附近</a>
+			</div>
+			<div class="popular">
+				<a href="">熱門</a>
+			</div>
+			<div class="price">
+				<a href="">價格</a>
+			</div>
+		</div>
+	</header>
+	<div class="mainPage">
+		<div id="social_links">
+			<div id="fb">
+				<img src="images/fb_icon.png" alt="facebook">
+			</div>
+			<div id="ig">
+				<img src="images/ig_icon.png" alt="instagram">
+			</div>
+			<div id="googlePlus">
+				<img src="images/googlePlus_icon.png" alt="googlePlus">
+			</div>
+		</div>
+		<div class="nav-box">
+			<nav>
+				<div class = "recommend"><a href="">推薦</a></div>
+				<div class = "near"><a href="">附近</a></div>
+				<div class = "popular"><a href="">熱門</a></div>
+				<div class = "price"><a href="">價格</a></div>
+			</nav>
+		</div>
+		<div class="postBoard">
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/001.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/002.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/003.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/004.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/005.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/006.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/007.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+			<div class="posts">
+				<div class="time">
+					<div class="start_time">
+						<h5>17</h5><h6>30</h6>
+					</div>
+					<div class="end_time">
+						<h5>18</h5><h6>30</h6>
+					</div>
+				</div>
+				<div class="foodPicture" style="background-image: url('images/008.jpg')"></div>
+				<!--<img class = "foodPicture" src="images/001.jpg" alt="">-->
+				<div class="info">
+					<div class="top">
+						<a>$100/人</a>
+						<a>台南</a>
+						<a>內用/外帶</a>
+					</div>
+					<div class="title">
+						<a>黯然消魂飯</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src = "js/food_mainPage_app.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src = "js/vue_app.js"></script>
+	<script>
+		$(function () {
+	    	$(".star").rateYo({
+		    	starWidth: "18px",
+		    	ratedFill: "#FF9826"
+			})
+		})
+
+ 
+	</script>
+</body>
+</html>

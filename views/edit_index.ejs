@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<title>jiabeng</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/edit_screen.css">
+	<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="form">
+			<input type="text" name="title" placeholder="為聚會取個名稱吧">
+			<input type="text" name="name" placeholder="你的名字">
+			<input type="text" name="time" placeholder="聚會時間(限24小時內)">
+			<input type="text" name="game_time"placeholder="遊戲開始時間">
+			<input type="text" name="price" placeholder="食物價格範圍">
+			<input type="text" name="place" placeholder="地點">
+			<textarea name="rules" id="" cols="30" rows="10" placeholder="寫下遊戲規則吧"></textarea>
+			<button type="submit" id="build">BUILD</button>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		/*$('#build').click(()=>{
+			let content = {}
+			content.title = $('input[name="title"]').val()
+			content.name = $('input[name="name"]').val()
+			content.time = $('input[name="time"]').val()
+			content.game_time = $('input[name="game_time"]').val()
+			content.price = $('input[name="price"]').val()
+			content.place = $('input[name="place"]').val()
+			content.rules = $('input[name="rules"]').val()
+			$.post('./build_event',content,(data)=>{
+				$('#app').html(data)
+			})
+		})*/
+		$("#build").click((data) => {
+			let content = {}
+			content.title = $('input[name="title"]').val()
+			content.name = $('input[name="name"]').val()
+			content.time = $('input[name="time"]').val()
+			content.game_time = $('input[name="game_time"]').val()
+			content.price = $('input[name="price"]').val()
+			content.place = $('input[name="place"]').val()
+			content.rules = $('input[name="rules"]').val()
+		    $.ajax({
+		        type: 'POST',
+		        data: JSON.stringify(content),
+		        contentType: 'application/json',
+		        url: './build_event',
+		        success: function(data) {
+		            console.log('success');
+		            $('.form').html('<h3>your post ID: '+data+'</h3>')
+		        }
+		    });
+		})
+	</script>
+</body>
+</html>

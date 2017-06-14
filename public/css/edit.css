@@ -1,0 +1,186 @@
+body{
+     color: #5D478B;
+}
+
+.logo{
+    position: absolute;
+    top:3vw;
+    left:5vw;
+ }
+
+#logotext{
+    position: absolute;
+      border-radius:10px;
+    margin-top: 1.5vw;
+    width: 16vw;
+    height: 1.5vw;
+    background: transparent;
+     border:1.5px #5D478B solid ;
+}
+
+#user{
+    position: absolute;
+    top:2vw;
+    left:80vw;
+}
+.pic{
+    position: absolute;
+    left: 5vw;
+    top: 20vw;
+}
+
+#text{
+    border-radius:10px;
+    width:16vw;
+    height: 1.5vw;
+    background: transparent;
+    border:1.5px #5D478B solid ;
+}
+
+#file{
+    position: absolute;
+    width:4vw;
+    height: 2vw;
+    top: 20vw;
+    left: 21.5vw;
+    opacity: 0;
+}
+
+#desk{
+    position: absolute;
+    width: 15%;
+    height: 100%;
+}
+
+.input{
+    position: absolute;
+    top: 8vw;
+    left: 30vw;
+    font-size: 2vw;
+
+}
+
+#food,#place{
+    position: absolute;
+     border-radius:10px;
+     width: 40vw;
+    height: 2vw;
+    background: transparent;
+     border:1.5px #5D478B solid ;
+}
+
+#price,#number{
+    position: relative;
+     border-radius:10px;
+    width: 17.5vw;
+    height: 2vw;
+    background: transparent;
+     border:1.5px #5D478B solid ;
+}
+#time,#gettime{
+    position: relative;
+     border-radius:10px;
+    width: 13.5vw;
+    height: 2vw;
+    background: transparent;
+     border:1.5px #5D478B solid ;
+}
+
+#suggest{
+    position: absolute;
+    border-radius:10px;
+    width: 40vw ;
+    height: 15vw;
+    background: transparent;
+     border:1.5px #5D478B solid ;
+     text-align: left;
+}
+
+#edit{
+    position: absolute;
+    top:32vw;
+    left: 5vw;
+    font-size: 2vw;
+}
+
+#map {
+    position: absolute;
+    height: 30vw;
+    width:80vw;
+    margin: 0;
+    padding: 0;
+    top: 45vw;
+    left:10vw;
+}
+
+
+#pac-input {
+    margin-top: 10px;
+    margin-left: 8vw;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 3vw;
+    width: 30vw;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#target {
+    width: 34px;
+}
+
+.preview {
+  position: absolute;
+  top: 500px;  
+  left: -300px;
+}
+
+#preview {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  color: #5D478B;
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

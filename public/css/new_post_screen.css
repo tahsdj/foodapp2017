@@ -1,0 +1,182 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+body {
+  text-align: center;
+  font-family: Microsoft JhengHei, monospace;
+  background-color: #2471a3;
+  z-index: 1
+}
+
+#app {
+  display: inline-block;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2471a3;
+}
+#app #post-area {
+  display: inline-block;
+  max-width: 460px;
+  width: calc( 100% - 40px);
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+#app #post-area .title {
+  display: inline-block;
+  width: calc( 80% - 40px);
+  padding: 80px 20px;
+  float: left;
+}
+#app #post-area .title * {
+  float: left;
+}
+#app #post-area .title h2 {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  font-size: 35px;
+}
+#app #post-area .title label {
+  margin-left: 10px;
+}
+#app #post-area .title a, #app #post-area .title label {
+  font-size: 12px;
+}
+#app #post-area .title a {
+  text-decoration-line: none;
+}
+#app #post-area .info {
+  display: inline-block;
+  width: 100%;
+  height: 100px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+#app #post-area .info label {
+  display: inline-block;
+  float: left;
+}
+#app #post-area .info li {
+  display: block;
+}
+#app #post-area iframe {
+  display: inline-block;
+  width: calc(100% );
+  height: 180px;
+  transform: translate(0px, 0);
+}
+#app #post-area #join {
+  position: fixed;
+  max-width: 150px;
+  width: 70vw;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 25px;
+  background-color: black;
+  color: white;
+  box-shadow: 1px 1px 5px #eceff2;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, 0px);
+}
+#user-input {
+  position: fixed;
+  max-width: 300px;
+  width: calc(100% - 50px);
+  top: 100px;
+  left: 50%;
+  padding: 40px 20px 20px 20px;
+  transform: translateX(-50%);
+  border: 1px solid grey;
+  background-color: white;
+}
+#user-input input {
+  width: 80%;
+  height: 30px;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+}
+#user-input button {
+  width: calc(80% + 20px);
+  height: 40px;
+  border-radius: 10px;
+  background-color: black;
+  color:white;
+  z-index: 2;
+}
+#user-input h3 {
+  display: inline-block;
+  float: left;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+#user-input select {
+  display: block;
+  float: left;
+}
+#user-input .cross {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
