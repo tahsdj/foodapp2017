@@ -10,7 +10,13 @@ const data = require('./njs_exports/data')
 const mgDb = require('./njs_exports/mongodb_test')
 const event = require('./njs_exports/event')
 const app = express()
+// remember install sockeio
+var server = require('http').createServer(app),
+	io = require('socket.io').listen(server)
 
+server.listen(3333,()=>{
+	console.log('listen to port 3333')
+})
 
 
 
@@ -76,7 +82,7 @@ app.post('/enter_event',function(req,res){
 })
 
 app.post('/join_event/:id',function(req,res){
-	event.join(req,res)
+	event.join(req,res,io)
 })
 
 app.post('/doLogin',(req,res) =>{
@@ -94,6 +100,39 @@ app.post('/doPreview',(req,res) => {
 })
 
 
-var server = app.listen(3333, function() {
+// change cause of using io socket on the top 
+/*var server = app.listen(3333, function() {
   console.log('Listening on port 3333')
+})*/
+var number = 0 
+var onlineList = []
+io.sockets.on('connection',(socket)=>{
+	console.log('someone connect')
+	socket.on('new member',(data)=>{
+		if (onlineList.indexOf(data) != -1 ){
+
+		}else{
+			console.log('data is: ' + data)
+			//socket.emit just emit to one
+			//io.sockets.emiit emit to all
+			io.sockets.emit('chat',data +' '+'add')
+			onlineList.push(data)
+			socket.nickname = data
+		 	updateMemberList()
+		}
+	})
+	socket.on('disconnect',(data)=>{
+		if(!socket.nickname) return
+		io.sockets.emit('chat',socket.nickname+" "+"leave")
+
+		//remove disconnected user
+		onlineList.splice(onlineList.indexOf(socket.nickname),1)
+		updateMemberList()
+	})
 })
+
+
+function updateMemberList(){
+	io.sockets.emit('list',onlineList)
+	
+}

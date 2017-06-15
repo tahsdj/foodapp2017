@@ -18,7 +18,8 @@ var post = mongoose.model('posts',{
 		default: 1
 	},
 	id: String,
-	joinList: []
+	joinList: Array,
+	questions: Array
 })
 
 const build = function(req,res) {
@@ -65,18 +66,41 @@ const enter = function(req,res) {
 	})
 }
 
-const join = function(req,res) {
-	let newPost = new post(req.body)
+const join = function(req,res,io) {
 	let reqId = req.params.id
+	let memberList = []
 	post.findOne({id: reqId},function(err,posts) {
 		if (err) {
 			console.log(err)
 		}
 		else {
 			if(posts){
-				res.render('new_post_index',{
-					post: posts,
-					id: posts.id
+				let numberOfMember = posts.members + 1
+				console.log('hi')
+				let content = {}
+				content = JSON.stringify(req.body)
+				content = JSON.parse(content)
+				let question = {}
+				question.title = content.question
+				question.selection = []
+				question.selection[0] =  content.answerA
+				question.selection[1] =  content.answerB
+				question.selection[2] =  content.answerC
+				question.selection[3] =  content.answerD
+				question.correctAnswer = content.answer
+				console.log(content)
+				//$push: {arrayName: "content you wanna add in" }
+				post.update({id: reqId},{$push: {joinList: content},$push: {questions: question},members: numberOfMember},{upsert:true},function(_err,_post) {
+					if(_err)
+						console.log(_err)
+					else{
+						console.log('join data insert')
+						res.render('post_room',{
+							post: posts,
+							id: reqId,
+							user: req.body
+						})
+					}
 				})
 			}else{
 				res.redirect('/')
@@ -87,3 +111,4 @@ const join = function(req,res) {
 
 exports.build = build
 exports.enter = enter
+exports.join = join

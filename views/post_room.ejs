@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<title>jiabeng</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/new_post_screen.css">
+	<script src="https://unpkg.com/vue"></script>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h2>now members: <%= post.members%></h2>
+		<h3><%= post.title%></h3>
+		<h3>welcome:</h3><h2 id="user"><%= user.nickname %></h2>
+		<div id="msg"></div>
+		<div id="list"></div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+			var socket = io.connect()
+			socket.emit('new member', $('#user').text())
+			socket.on('chat',(msg)=>{
+				console.log('get: '+ msg)
+				$('#msg').append('<div>'+msg+'</div>')
+			})
+			socket.on('list',(msg)=>{
+				console.log(msg)
+				$('#list').html('')
+				for(let i = 0 ; i < msg.length ; i++){
+					$('#list').append('<div>'+(i+1)+'.'+msg[i]+'</div>')
+				}
+			})
+		})
+	</script>
+</body>
+</html>
