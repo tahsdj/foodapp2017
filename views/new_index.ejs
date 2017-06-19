@@ -10,30 +10,93 @@
 </head>
 <body>
 	<div id="app">
-		<!--<div class="post">
-			<div class="info">
-				<h3>106黑膠團</h3>
-				<label for="">post by</label><a href="">蔡</a>
+		<div id="banner">
+			<div class="filter">
 			</div>
-			<button>join</button>
+			<header>
+				<img src="img/app_logo_deepBlue.png" alt="" class="logo">
+				<img src="img/list_icon.png" alt="" class="list">
+			</header>
+			<br>
+			<img src="img/LOGO-03.png" alt="" class="plate-logo"><br>
+			<input type="text" placeholder="搜尋家中食材" class="search">
+			<br>
+			<h2>分享食材、與朋友一起料理</h2>
 		</div>
-		<div class="post">
-			<div class="info">
-				<h3>107黑膠團</h3>
-				<label for="">post by</label><a href="">蔡</a>
-			</div>
-			<button>join</button>
-		</div>-->
-		<div class="create-event" title="create an event">
+		<div class="list-board">
+			<i class="fa fa-times" aria-hidden="true"></i>
+			<ul>
+				<li class = "user-profile" style="display: none"><img src="img/01.png" alt="" class = "user-img"><br><h3 class = "user-name">蔡帛融</h3></li>
+				<li class="login">登入</li>
+				<li class ="signup">註冊</li>
+				<a href="./edit"><li class="edit">發文</li></a>
+			</ul>
+		</div>
+		<!--<div class="create-event" title="create an event">
 			<a href="./edit"><i class="fa fa-plus" aria-hidden="true"></a></i>
+		</div>-->
+		<div class="post-board">
+			<% for ( let i = 0 ; i < post.length ; i++) {%>
+				<div class="post">
+					<a href="./food/<%=post[i].id%>"><img src="<%= post[i].imgURL%>" alt="" class = "food-img"></a><br>
+					<h3 class="title"><%= post[i].title%></h3><br>
+					<img src="img/01.png" alt="" class="profile">
+					<i class="fa fa-star" aria-hidden="true"><%= i %></i>
+				</div>
+			<%}%>
 		</div>
-		<form action="./enter_event" method = "post">
-			<input name = "id" type="text" placeholder="enter post ID">
-			<button type="submit">ENTER</button>
-		</form>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+			$('.fa-star').click(function(){
+				let link = $(this).siblings('a').attr('href').split("/")
+				let id = link[2]
+				let now_likes = parseInt($(this).text(), 10)
+				let content = {}
+					content.id = id
+					content.user = '112'
+				let _this = $(this)
+				$.ajax({
+			        type: 'POST',
+			        data: JSON.stringify(content),
+			        contentType: 'application/json',
+			        url: './like_clicked',
+			        success: function(data) {
+			        	console.log(data)
+			        	if(data){
+			        		now_likes++
+			        		_this.css({
+			        			'color': '#FFD480'
+			        		})
+			        	}
+			        	else{
+			        		now_likes--
+			        		_this.css({
+			        			'color': 'grey'
+			        		})
+			        	}
+			            _this.text(now_likes)
+			        }
+			    })
+			})
+
+			//close the side list
+			$('.fa-times').click(()=>{
+				$('.list-board').css({
+					'display': 'none'
+				})
+			})
+
+			//open the side list
+			$('.list').click(()=>{
+				$('.list-board').css({
+					'display': 'initial'
+				})
+			})
+		}())
+	</script>
 	<script src = "js/index_app.js">
-		
 	</script>
 </body>
 </html>

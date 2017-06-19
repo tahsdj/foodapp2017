@@ -11,6 +11,9 @@
 </head>
 <body>
 	<div id="app">
+		<% if( post.name == user.realname) {%>
+			<button>start</button>
+		<%}%>
 		<h2>now members: <%= post.members%></h2>
 		<h3><%= post.title%></h3>
 		<h3>welcome:</h3><h2 id="user"><%= user.nickname %></h2>

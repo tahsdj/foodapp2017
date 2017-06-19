@@ -5,53 +5,61 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 	<title>jiabeng</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/new_post_screen.css">
+	<link rel="stylesheet" href="../../css/new_post_screen.css">
 	<script src="https://unpkg.com/vue"></script>
 </head>
-<body>
+<body onload='addressGps("<%=post.place%>")'>
 	<div id="app">
 		<div id="post-area">
 			<div class="title">
 				<h2><%= post.title %></h2>
-				<label for="">post by</label><a><%= post.name %></a>
+				<label for="">post by</label><a><%= post.poster %></a>
 			</div>
+			<img src="<%= post.imgURL%>" alt="" class = "food-photo">
 			<div class="info">
 				<ul>
-					<label for="">集合時間:</label><li><%= post.time %></li>
+					<label for="">活動時間:</label><li><%= post.time %></li>
 					<label for="">地點:</label><li><%= post.place %></li>
-					<label for="">食物價格:</label><li><%= post.price %></li>
 					<label for="">最低人數:</label><li><%= post.members %></li>
-					<label for="">遊戲開始時間:</label><li><%= post.game_time %></li>
+					<label for="">募集項目:</label>
+					<ul>
+						<% for( let i = 0; i < post.item.length ; i++ ) {%>
+							<li><%= post.item[i] %></li>
+						<%}%>
+					</ul>
 					<label for="">規則:</label><li><%= post.rules %></li>
 				</ul>
 			</div>
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14691.451547978273!2d120.2224226!3d22.992068949999997!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xde0905a4a9fa300e!2z5oiQ5aSn6Yar6Zmi!5e0!3m2!1szh-TW!2stw!4v1497107602449" frameborder="0" style="border:0" allowfullscreen></iframe>
-			<button id = "join">JOIN</button>
+			<div id="my_map"></div>
+			<div class="member-list">
+				<% for(let i = 0 ; i < post.joinList.length ; i++ ){%>
+					<div>
+						<h3><%= post.joinList[i].name%></h3>
+						<h3>offer: <%= post.joinList[i].food%></h3>
+					</div>
+				<%}%>
+			</div>
+			<% let joined = false %>
+			<% post.joinList.find((obj)=>{
+					if( obj.userID === 'QWEQWWWED'){
+						joined = true
+					}
+				} ) %>
+			<% if(joined) {%>
+				<button id = "join" disabled style="background-color: gray">JOIN</button>
+			<%}else{%>
+				<button id = "join">JOIN</button>
+			<%}%>
 		</div>
 	</div>
-	<form action="./join_event/<%= id %>" id="user-input" method="post" class="hidden">
+	<form action="./join_event/<%=post.id%>" method="POST" id="user-input" class="hidden">
 		<i class="fa fa-times cross" aria-hidden="true"></i>
-		<input type="text" name="realname" placeholder="真實姓名(只有主辦人會知道)">
-		<input type="text" name="nickname" placeholder="暱稱">
-		<input type="text" name="food" placeholder="想吃的食物(ex:勝早蛋餅)">
-		<input type="text" name="question" placeholder="出個關於這份食物或店家有關的題目吧">
-		<ul>
-			<h3>您題目的選項</h3>
-			<li><input type="text" name="answerA" placeholder="選項A" ></li>
-			<li><input type="text" name="answerB" placeholder="選項B"></li>
-			<li><input type="text" name="answerC" placeholder="選項C"></li>
-			<li><input type="text" name="answerD" placeholder="選項D"></li>
-		</ul>
-		<h3>正確答案為</h3>
-		<select name="answer" id="">
-			<option value="A">A</option>
-			<option value="B">B</option>
-			<option value="C">C</option>
-			<option value="D">D</option>
-		</select>
+		<input type="text" name="userID" value="QWEQWWWED" style ="display:none">
+		<input type="text" name="name" value="paul" style ="display:none">
+		<input type="text" name="food" placeholder="你想貢獻的食材">
 		<br>
 		<br>
-		<button>CONTINUE</button>
+		<button id="continue">CONTINUE</button>
 	</form>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
@@ -67,6 +75,46 @@
 				"filter": "brightness(100%)"
 			})	
 		})
+		/*$('#continue').click(()=>{
+			let val = $('#user-input input').val()
+			let content = {}
+			content.userID = 'QWEQWWWED' 
+			content.name = 'paul'
+			content.offer = val
+			$.ajax({
+		        type: 'POST',
+		        data: JSON.stringify(content),
+		        contentType: 'application/json',
+		        url: './food/join_event/<%=post.id%>',
+		        success: function(data) {
+		            console.log('success');
+		            $('#user-input').html('<h3>'+data+'</h3>')
+		        }
+		    })
+		})*/
+		function addressGps(place) {
+			console.log(place)
+			var myLatLng = new google.maps.LatLng(22.9996873, 120.21809469999994)
+			var myGeocoder = new google.maps.Geocoder();
+			var address = place
+			var myMap = new google.maps.Map(document.getElementById("my_map"),{
+				center: myLatLng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			})
+			myGeocoder.geocode({address: address}, function(results, status) {
+		          if (status === 'OK') {
+			            myMap.setCenter(results[0].geometry.location);
+			            var myMarker = new google.maps.Marker({
+				            map: myMap,
+				            position: results[0].geometry.location
+			            });
+		          } else {
+		            //alert('Geocode was not successful for the following reason: ' + status);
+		          }
+		        })
+		}
 	</script>
+	<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAxSB6ubUXYlbNl67cImH8aJk4cYEafjoM"></script>
 </body>
 </html>

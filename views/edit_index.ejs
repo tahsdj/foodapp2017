@@ -8,35 +8,146 @@
 	<link rel="stylesheet" href="css/edit_screen.css">
 	<script src="https://unpkg.com/vue"></script>
 </head>
-<body>
+<body onload="load()">
 	<div id="app">
-		<div class="form">
-			<input type="text" name="title" placeholder="為聚會取個名稱吧">
-			<input type="text" name="name" placeholder="你的名字">
-			<input type="text" name="time" placeholder="聚會時間(限24小時內)">
-			<input type="text" name="game_time"placeholder="遊戲開始時間">
-			<input type="text" name="price" placeholder="食物價格範圍">
-			<input type="text" name="place" placeholder="地點">
-			<textarea name="rules" id="" cols="30" rows="10" placeholder="寫下遊戲規則吧"></textarea>
-			<button type="submit" id="build">BUILD</button>
+		<!--<form action="/upload" enctype="multipart/form-data" method="POST">
+			<div id="photo-upload" title="choose your food photo">
+				<label for="file"><img src="img/LOGO-03.png" alt=""></label>
+				<input type="file" id = "file" onchange="readURL(this)" name="file">
+			</div>
+			<br>
+			<div class="form">
+				<input type="text" name="poster" value="paul tsai" style="display: none">
+				<input type="text" name="title" placeholder="食物名稱">
+				<input type="text" name="time" placeholder="時間">
+				<div class="place-box">
+					<input type="text" name="place" placeholder="地點" id = "place"><i class="fa fa-map-marker" aria-hidden="true" title="show on map" onclick="addressGps();"></i>
+				</div>
+				<textarea name="intro" id="" cols="30" rows="10" placeholder="介紹一下吧"></textarea>
+				<ul class="mission-list">
+					募集項目:<i class="fa fa-plus" aria-hidden="true"></i>
+					<li class="list">
+						<input type="text" placeholder="項目內容" name = 'item0'>
+					</li>
+				</ul>
+				<div id="my_map"></div>
+				<button type="submit" id="build">BUILD</button>
+			</div>
+		</form>-->
+		<form action="/upload" enctype="multipart/form-data" method="POST">
+			<div id="banner">
+				<div class="filter">
+				</div>
+				<header>
+					<img src="img/app_logo_deepBlue.png" alt="" class="logo">
+					<img src="img/list_icon.png" alt="" class="list">
+				</header>
+				<br>
+				<label for="file" title="choose a food photo" id="photo-upload"><img src="img/LOGO-03.png" alt="" class="plate-logo"></label>
+				<input type="file" id = "file" onchange="readURL(this)" name="file" style="display: none">
+				<br>
+				<h2>上傳你構想的食物吧</h2>
+			</div>
+			<div class="post-board">
+				<input type="text" name="poster" value="paul tsai" style="display: none">
+				<input type="text" name="title" placeholder="食物名稱">
+				<input type="text" name="time" placeholder="時間">
+				<input type="text" name="members" placeholder="人數限制">
+				<div class="place-box">
+					<input type="text" name="place" placeholder="地點" id = "place"><i class="fa fa-map-marker" aria-hidden="true" title="show marker below" onclick="addressGps();"></i>
+				</div>
+				<textarea name="intro" id="" cols="30" rows="10" placeholder="介紹一下吧"></textarea>
+				<textarea name="mission-list" id="" cols="30" rows="3" placeholder="募集內容 ex: 主廚、食材、餐具..."></textarea>
+				<!--<ul class="mission-list">
+					募集項目:<i class="fa fa-plus" aria-hidden="true"></i>
+					<li class="list">
+						<input type="text" placeholder="項目內容" name = 'item0'>
+					</li>
+				</ul>-->
+				<div id="my_map"></div>
+				<button type="submit" id="build">BUILD</button>
+			</div>
+		</form>
+		<div class="list-board">
+			<i class="fa fa-times" aria-hidden="true"></i>
+			<ul>
+				<li class = "user-profile" style="display: none"><img src="img/01.png" alt="" class = "user-img"><br><h3 class = "user-name">蔡帛融</h3></li>
+				<li class="login">登入</li>
+				<li class ="signup">註冊</li>
+				<a href="./edit"><li class="edit">發文</li></a>
+			</ul>
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </script>
 	<script>
-		/*$('#build').click(()=>{
-			let content = {}
-			content.title = $('input[name="title"]').val()
-			content.name = $('input[name="name"]').val()
-			content.time = $('input[name="time"]').val()
-			content.game_time = $('input[name="game_time"]').val()
-			content.price = $('input[name="price"]').val()
-			content.place = $('input[name="place"]').val()
-			content.rules = $('input[name="rules"]').val()
-			$.post('./build_event',content,(data)=>{
-				$('#app').html(data)
+		$(function(){
+			let i = 0
+			$('.fa-plus').click(()=>{
+				i++
+				let addContent = '<li class="list">'+'<input type="text" placeholder="項目內容" name = "item'+i+'">'+
+				'</li>'
+				//console.log(addContent)
+				$('.mission-list').append(addContent)
 			})
-		})*/
-		$("#build").click((data) => {
+
+			$('.fa-times').click(()=>{
+				$('.list-board').css({
+					'display': 'none'
+				})
+			})
+
+			$('.list').click(()=>{
+				$('.list-board').css({
+					'display': 'initial'
+				})
+			})
+
+		}())
+
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		      $('#photo-upload img')
+		        .attr('src', e.target.result)
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  }
+		}
+		var myMap;
+		var myMarker;
+		function load() {
+			var myLatLng = new google.maps.LatLng(22.9996873, 120.21809469999994)
+			myMap = new google.maps.Map(document.getElementById("my_map"),{
+				center: myLatLng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			})
+				myMarker = new google.maps.Marker({
+	            position: myLatLng,
+	            map: myMap
+	     	})
+		}
+
+		function addressGps() {
+			var myGeocoder = new google.maps.Geocoder();
+			var address = document.getElementById('place').value;
+			myGeocoder.geocode({address: address}, function(results, status) {
+		          if (status === 'OK') {
+			            myMap.setCenter(results[0].geometry.location);
+			            myMarker.setMap(null)
+			            myMarker = new google.maps.Marker({
+			              map: myMap,
+			              position: results[0].geometry.location
+			            });
+		          } else {
+		            //alert('Geocode was not successful for the following reason: ' + status);
+		          }
+		        })
+		}
+
+		/*$("#build").click((data) => {
 			let content = {}
 			content.title = $('input[name="title"]').val()
 			content.name = $('input[name="name"]').val()
@@ -55,7 +166,8 @@
 		            $('.form').html('<h3>your post ID: '+data+'</h3>')
 		        }
 		    });
-		})
+		})*/
 	</script>
+  	<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyAxSB6ubUXYlbNl67cImH8aJk4cYEafjoM&sensor=true"></script>
 </body>
 </html>

@@ -57,74 +57,172 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 body {
   text-align: center;
   font-family: Microsoft JhengHei, monospace;
-  background-color: #2471a3;
+  background-color: #fcfcfc;
+  z-index: 0;
 }
 
 #app {
   position: relative;
   display: inline-block;
-  max-width: 500px;
   width: 100%;
-  margin: 130px 0px 0px 0px;
-  padding: 20px 0px;
+  z-index: 0;
 }
-#app .post {
+#app #banner {
+  position: relative;
   display: inline-block;
-  max-width: calc( 100% - 40px);
-  float: left;
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  cursor: pointer;
-  margin-bottom: 15px;
+  width: 100%;
+  height: 60vh;
+  background-image: url("../images/wood_bg.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
 }
-#app .post * {
+#app #banner .filter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+#app #banner header {
+  position: relative;
   display: inline-block;
-  float: left;
+  max-width: 1200px;
+  width: calc(100% - 20px);
+  height: 60px;
+  border-bottom: 1px solid #2471a3;
+  z-index: 10;
 }
-#app .post h3 {
-  font-size: 25px;
-  margin-right: 20px;
-}
-#app .post button {
-  float: right;
-  margin: 0px 10px;
-  width: 80px;
-  height: 30px;
-  border-radius: 5px;
-}
-#app .form {
+#app #banner header .logo {
   display: inline-block;
-  width: calc(100% - 80px);
-  padding: 20px;
-}
-#app .form > * {
-  display: inline-block;
-}
-#app .form input {
-  width: calc(80% - 20px);
+  width: 40px;
   height: 40px;
-  padding: 0px 10px;
-  border-radius: 3px;
-  font-size: 22px;
+  padding: 10px 0px;
 }
-#app .form textarea {
-  width: calc(80% - 20px);
-  height: 80px;
-  padding: 10px;
+#app #banner header .list {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  padding: 10px 20px;
+  cursor: pointer;
 }
-#app .form button {
-  margin-top: 30px;
-  width: 80%;
-  height: 50px;
-  border-radius: 3px;
+#app #banner .plate-logo {
+  display: inline-block;
+  margin: 10vh 0px 20px 0px;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+#app #banner h2 {
   font-size: 25px;
+  color: white;
+  text-shadow: 1px 1px gray;
+}
+#app .create-event {
+  position: fixed;
+  top: 40px;
+  right: calc(50% - 130px);
+  cursor: pointer;
+}
+#app .create-event > * {
+  font-size: 40px;
+  color: white;
+}
+#app .list-board {
+  position: fixed;
+  display: none;
+  right: 0px;
+  top: 0px;
+  max-width: 420px;
+  width: 85vw;
+  height: 100vh;
+  background-color: rgba(29, 62, 83, 0.8);
+  transition: all 1s;
+  z-index: 99;
+}
+#app .list-board .fa-times {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 35px;
+  font-weight: 200;
+  color: white;
+}
+#app .list-board ul {
+  display: inline-block;
+  width: 100%;
+  padding-top: 40px;
+}
+#app .list-board ul li {
+  display: inline-block;
+  width: calc(100% - 20px);
+  padding: 30px 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+#app .list-board ul li img.user-img {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+#app .list-board ul li h3.user-name {
+  font-size: 20px;
+  color: white;
+}
+#app .list-board ul li:hover {
+  background-color: rgba(29, 62, 83, 0.4);
+  transition: all 0.8s;
+}
+#app .post-board {
+  display: inline-block;
+  max-width: 400px;
+  width: calc(100% - 40px);
+  padding: 25px 10px;
+  margin: 0px 0px 50px 0px;
+  transform: translate(0px, -60px);
+  box-shadow: 1px 1px 4px gray;
+  z-index: 5;
+  background-color: white;
+}
+#app .post-board input {
+  display: inline-block;
+  width: calc(90% - 20px);
+  padding: 0px 10px;
+  height: 35px;
+  border: none;
+  border-bottom: 1px solid #eceff2;
+  margin-bottom: 10px;
+  outline-style: none;
+  font-size: 20px;
+  font-family: Microsoft JhengHei, monospace;
+}
+#app .post-board .fa-map-marker {
+  transform: translate(-20px, 0px);
+  font-size: 20px;
+  cursor: pointer;
+}
+#app .post-board textarea {
+  display: inline-block;
+  width: calc(90% - 20px);
+  padding: 10px;
+  border: 1px solid #eceff2;
+  outline-style: none;
+}
+#app .post-board #my_map {
+  display: inline-block;
+  width: 100%;
+  height: 150px;
+  border: 1px solid #eceff2;
+}
+#app .post-board #build {
+  width: 200px;
+  height: 40px;
+  margin-top: 20px;
   background-color: black;
   color: white;
-}
-
-#app .form h3 {
-  font-size: 25px;
-  padding: 30px 0px;
-  color: white;
+  border-radius: 5px;
 }

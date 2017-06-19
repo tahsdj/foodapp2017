@@ -57,16 +57,74 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 body {
   text-align: center;
   font-family: Microsoft JhengHei, monospace;
-  background-color: #2471a3;
+  background-color: white;
+  z-index: 0;
 }
 
 #app {
   position: relative;
   display: inline-block;
-  max-width: 500px;
   width: 100%;
-  margin: 200px 0px 0px 0px;
-  padding: 20px 0px;
+}
+#app #banner {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 60vh;
+  background-image: url("../images/wood_bg.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+#app #banner .filter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
+  z-index: -1;
+}
+#app #banner header {
+  position: relative;
+  display: inline-block;
+  max-width: 1200px;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #2471a3;
+  z-index: 10;
+}
+#app #banner header .logo {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  padding: 10px 0px;
+}
+#app #banner header .list {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+#app #banner .plate-logo {
+  display: inline-block;
+  margin: 10vh 0px 20px 0px;
+  width: 100px;
+  height: 100px;
+}
+#app #banner input.search {
+  display: inline-block;
+  width: 100px;
+  height: 25px;
+  background-color: transparent;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#app #banner h2 {
+  font-size: 25px;
+  color: white;
+  text-shadow: 1px 1px gray;
 }
 #app .create-event {
   position: fixed;
@@ -78,52 +136,98 @@ body {
   font-size: 40px;
   color: white;
 }
-#app .post {
+#app .list-board {
+  position: fixed;
+  display: none;
+  right: 0px;
+  top: 0px;
+  max-width: 420px;
+  width: 85vw;
+  height: 100vh;
+  background-color: rgba(29, 62, 83, 0.8);
+  transition: all 1s;
+  z-index: 99;
+}
+#app .list-board .fa-times {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 35px;
+  font-weight: 200;
+  color: white;
+}
+#app .list-board ul {
   display: inline-block;
-  max-width: calc( 100% - 40px);
-  float: left;
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
+  width: 100%;
+  padding-top: 40px;
+}
+#app .list-board ul li {
+  display: inline-block;
+  width: calc(100% - 20px);
+  padding: 30px 20px;
+  font-size: 30px;
+  color: white;
   cursor: pointer;
-  margin-bottom: 15px;
 }
-#app .post * {
+#app .list-board ul li img.user-img {
   display: inline-block;
-  float: left;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
-#app .post h3 {
-  font-size: 25px;
-  margin-right: 20px;
+#app .list-board ul li h3.user-name {
+  font-size: 20px;
+  color: white;
 }
-#app .post button {
-  float: right;
-  margin: 0px 10px;
-  width: 80px;
-  height: 30px;
+#app .list-board ul li:hover {
+  background-color: rgba(29, 62, 83, 0.4);
+  transition: all 0.8s;
+}
+#app .post-board {
+  display: inline-block;
+  max-width: 400px;
+  width: calc(100% - 20px);
+  padding: 0px 10px;
+  margin: 80px 0px 150px 0px;
+}
+#app .post-board .post {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 60px;
+}
+#app .post-board .post * {
+  display: inline-block;
+}
+#app .post-board .post .food-img {
+  width: 100%;
+  height: 200px;
   border-radius: 5px;
 }
-#app form {
-  display: inline-block;
-  width: calc(100% - 80px);
-  padding: 20px;
-}
-#app form > * {
-  display: inline-block;
-}
-#app form input {
-  width: calc(80% - 20px);
-  height: 40px;
-  padding: 0px 10px;
-  border-radius: 3px;
-  font-size: 22px;
-}
-#app form button {
-  margin-top: 30px;
-  width: 80%;
-  height: 50px;
-  border-radius: 3px;
+#app .post-board .post h3 {
+  position: absolute;
+  top: 25px;
+  left: 10px;
   font-size: 25px;
-  background-color: black;
+  padding: 10px;
   color: white;
+  border: 1px solid white;
+  text-shadow: 1px 1px black;
+  box-shadow: 1px 1px black;
+}
+#app .post-board .post .profile {
+  position: absolute;
+  bottom: 40px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+#app .post-board .post h5 {
+  font-size: 15px;
+}
+#app .post-board .post .fa-star {
+  color: gray;
 }

@@ -6,25 +6,31 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 //define data style
-var post = mongoose.model('posts',{
+var post = mongoose.model('articles',{
 	title: String,
-	name: String,
+	poster: String,
 	time: String,
-	price: String,
-	game_time: String,
-	rules: String,
+	place: String,
+	intro: String,
+	imgURL: String,
+	list: Array,
 	members:{
 		type: Number,
 		default: 1
 	},
 	id: String,
 	joinList: Array,
-	questions: Array
+	likes: {
+		type: Number,
+		default: 0
+	},
+	like_list: Array,
+	item: Array
 })
 
-const build = function(req,res) {
-	console.log(req.body)
-	let newPost = new post(req.body)
+const build = function(req,resId) {
+	//console.log(req.body)
+	let newPost = new post(req)
 	newPost.save((err,posts)=>{
 		if(err) {
 			console.log(err)
@@ -32,13 +38,13 @@ const build = function(req,res) {
 		}
 		else{
 			console.log('insert success')
-			let newID = JSON.stringify(posts._id).slice(1,8) //slice to first 1 to 8 string
+			let newID = JSON.stringify(posts._id).slice(1,15) //slice to first 1 to 8 string
 			post.update({_id: posts._id},{id: newID},function(err,_post) {
 				if (err) 
 					console.log(err)
 				else {
 					console.log(newID)
-					res.send(newID)
+					resId(newID)
 					console.log('update success')
 				}
 			})
@@ -46,9 +52,31 @@ const build = function(req,res) {
 	})
 }
 
+const updateImg = function(reqId,url,res) {
+	post.update({id: reqId},{imgURL: url},{upsert:true},function(_err,_post) {
+					if(_err)
+						console.log(_err)
+					else{
+						console.log('imgurl update success')
+						res.redirect('/')
+					}
+				})
+}
+
+//get all post
+const getAllPost = function(req,res) {
+	let posts = []
+	post.find((err,post) => {
+		posts = post
+		res.render('new_index',{
+			post: posts
+		})
+	})
+} 
+
 // find post
 const enter = function(req,res) {
-	let reqId = req.body["id"]
+	let reqId = req.params.id
 	post.findOne({id: reqId},function(err,posts) {
 		if (err) {
 			console.log(err)
@@ -66,7 +94,38 @@ const enter = function(req,res) {
 	})
 }
 
-const join = function(req,res,io) {
+const clickLikes = function(req,res) {
+	let likes = 0
+	let liked = false
+	post.findOne({id: req.body.id},(err,thisPost)=>{
+			likes = thisPost.likes
+			if(thisPost.like_list.indexOf(req.body.user) != -1 ){
+				liked = true
+				likes--
+				//remove user from like list
+				post.update({id: req.body.id},{likes: likes,$pull: {like_list: req.body.user} },{upsert:true},function(_err,_post) {
+					if(_err)
+						console.log(_err)
+					else{
+						res.send(false)
+					}
+				})
+			}else{
+				liked = false
+				likes++
+				//add use to like list
+				post.update({id: req.body.id},{likes: likes,$push: {like_list: req.body.user} },{upsert:true},function(_err,_post) {
+					if(_err)
+						console.log(_err)
+					else{
+						res.send(true)
+					}
+				})
+			}
+		})
+}
+
+const join = function(req,res) {
 	let reqId = req.params.id
 	let memberList = []
 	post.findOne({id: reqId},function(err,posts) {
@@ -76,30 +135,17 @@ const join = function(req,res,io) {
 		else {
 			if(posts){
 				let numberOfMember = posts.members + 1
-				console.log('hi')
 				let content = {}
 				content = JSON.stringify(req.body)
 				content = JSON.parse(content)
-				let question = {}
-				question.title = content.question
-				question.selection = []
-				question.selection[0] =  content.answerA
-				question.selection[1] =  content.answerB
-				question.selection[2] =  content.answerC
-				question.selection[3] =  content.answerD
-				question.correctAnswer = content.answer
 				console.log(content)
 				//$push: {arrayName: "content you wanna add in" }
-				post.update({id: reqId},{$push: {joinList: content},$push: {questions: question},members: numberOfMember},{upsert:true},function(_err,_post) {
+				post.update({id: reqId},{$push: {joinList: content},members: numberOfMember},{upsert:true},function(_err,_post) {
 					if(_err)
 						console.log(_err)
 					else{
 						console.log('join data insert')
-						res.render('post_room',{
-							post: posts,
-							id: reqId,
-							user: req.body
-						})
+						res.send('join success')
 					}
 				})
 			}else{
@@ -112,3 +158,6 @@ const join = function(req,res,io) {
 exports.build = build
 exports.enter = enter
 exports.join = join
+exports.updateImg = updateImg
+exports.getAllPost = getAllPost
+exports.clickLikes = clickLikes
