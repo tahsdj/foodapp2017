@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<title>jiabeng</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <script type="text/javascript" src="js/fb-login.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 	<link rel="manifest" href="/manifest.json">
@@ -16,15 +17,18 @@
 		<div class = "blue"></div>
 	</div>
 	<div class="container">
-			<div class = "logo">
-				<img src="img/app_logo_grayWhite.png" alt="">
-			</div>
-			<form action="./doLogin" method="post">
-				<input name = "account"type="text" placeholder="enter your account">
-				<input name = "password" type="password" placeholder="enter your password">
-				<button type = "submit">Login</button>
-			</form>
-			<a href="../foodpage">跳過</a>
+	  <div class = "logo">
+		  <img src="img/app_logo_grayWhite.png" alt="">
+		</div>		
+			
+    <div class="fb-login-button" data-max-rows="1" data-size="large" 
+                data-button-type="continue_with" data-show-faces="false"
+                data-auto-logout-link="false" data-use-continue-as="false"
+                data-onlogin="checkLoginState()">
+    </div>	  			
+	  <div class="skip">
+      <a href="../new_index">跳過</a>
 		</div>
+  </div> 
 </body>
 </html>
