@@ -12,6 +12,7 @@ const map = require('./njs_exports/map')
 const data = require('./njs_exports/data')
 const mgDb = require('./njs_exports/mongodb_test')
 const event = require('./njs_exports/event')
+//const member = require('./njs_exports/member')
 const imgur = require('./njs_exports/upload_imgur')
 const app = express()
 // remember install sockeio
@@ -41,6 +42,25 @@ app.use(express.static( __dirname + '/public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.cookieParser('secret'))
 app.use(bodyParser.json())
+
+// check use login or not
+
+function checkLoginStatus(req,res){
+	let user = {}
+	 user.id = req.cookies?req.signedCookies.userid:'undefined'
+	 user.name = req.cookies?req.signedCookies.username:'undefined'
+	 user.img = req.cookies?req.signedCookies.userimg:'undefined'
+	 if(user.id)
+	 	user.isLogin = true
+	 else
+	 	user.isLogin = false
+	/*if( req.signedCookies.userid && req.signedCookies.password ){
+		user.name = req.signedCookie.userid
+		isLogin = true
+	}*/
+	return user
+}
+
 
 app.all('/', (req, res)=>{
 	event.getAllPost(req,res)
@@ -85,7 +105,12 @@ app.post('/deal',(req,res)=>{
 })*/
 app.all('/edit', function(req,res) {
   //i modified the docs name from edit to edit_index
-  res.render('edit_index')
+  let user = checkLoginStatus(req,res)
+  console.log(user)
+  res.render('edit_index',{
+  	user: user,
+  	loginStatus: user.isLogin
+  })
 })
 
 //deal witdh event building
@@ -104,7 +129,7 @@ app.post('/food/join_event/:id',function(req,res){
 })
 
 app.post('/doLogin',(req,res) =>{
-	user.doLogin(req,res)
+	event.login(req,res)
 })
 app.post('/doRegister',(req,res) => {
 	user.doRegister(req,res)
@@ -118,6 +143,14 @@ app.post('/doPreview',(req,res) => {
 	edit.doPreview(req,res)
 })
 
+app.post('/search',(req,res)=>{
+	event.search(req,res)
+})
+
+app.post('/find_my_event',(req,res)=>{
+	event.checkEvent(req,res)
+})
+
 //upload post and images
 app.post('/upload',  function(req, res) {
   var post_data = {}
@@ -126,29 +159,32 @@ app.post('/upload',  function(req, res) {
   form.parse(req, function(err, fields, files) {
     // Store post data
     console.log('upload object: '+ fields)
-    Object.size = function(obj) {
+    /*Object.size = function(obj) {
 	    let size = 0, key;
 	    for (key in obj) {
 	        if (obj.hasOwnProperty(key)) size++;
 	    }
 	    return size
-	}
-	let numberOfotherlists = 5
+	}*/
+	/*let numberOfotherlists = 5
 	let size = Object.size(fields)
 	let itemLength = size - numberOfotherlists
 	let item = []
 	for(let i = 0 ; i < itemLength ; i++ ){
 		let _item = fields["item"+i+""]
 		item.push(_item)
-	}
+	}*/
+	/*
 	post_data.poster = fields.poster
 	post_data.title = fields.title
 	post_data.time = fields.time
+	post_data.people_limit = fields.people_limit
 	post_data.place = fields.place
 	post_data.intro = fields.intro
-	post_data.item = item
+	post_data.item_list = fields.item_list
     console.log(post_data)
-    event.build(post_data,(getId)=>{
+    */
+    event.build(fields,(getId)=>{
     	id = getId
     })
   });

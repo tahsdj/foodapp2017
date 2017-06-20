@@ -45,7 +45,7 @@ function statusChangeCallback(response) {
   	// Logged into your app and Facebook.
     testAPI();
     // Redirect
-    window.location = "/";
+    //window.location = "/";
   }
 }
 
@@ -60,9 +60,33 @@ function checkLoginState() {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function testAPI() { 
 	console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
   	console.log('Successful login for: ' + response.name);
-	});
+    let user = {}
+    user.name = response.name
+    user.id = response.id
+    user.img_url = "http://graph.facebook.com/"+response.id+"/picture?type=square"
+    user.app_friends = []
+    FB.api('/me/friends', function(_response) {
+      console.log('Successful friends for: ' + _response.data.length+ ' ' +'name: '+ _response.data[0].name + 'id: '+_response.data[0].id);
+      for(let i = 0 ; i < _response.data.length ; i++ ){
+        user.app_friends.push({id: _response.data[i].id, name: _response.data[i].name })
+      }
+      console.log(user)
+      /*$.post('./doLogin',user,function(data,status){
+        console.log("Data: " + data + "\nStatus: " + status)
+      })*/
+      $.ajax({
+            type: 'POST',
+            data: JSON.stringify(user),
+            contentType: 'application/json',
+            url: './doLogin',
+            success: function() {
+                window.location = "/"
+            }
+        })
+    })
+	})
 }

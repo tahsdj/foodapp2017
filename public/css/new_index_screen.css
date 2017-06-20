@@ -228,6 +228,39 @@ body {
 #app .post-board .post h5 {
   font-size: 15px;
 }
-#app .post-board .post .fa-star {
+#app .post-board .post .fa-heart {
   color: gray;
+}
+
+.note-board{
+  display: inline-block;
+  width: calc(60% - 20px);
+  padding: 10px;
+  background-color: #FFECBA;
+  margin-top: 5px;
+}
+.note-board .each-note{
+  display: inline-block;
+  width: calc(100% - 20px);
+  padding: 10px;
+  text-align: left;
+  border: 1px solid grey;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  background-color: white;
+  transition: all 0.5s;
+}
+.note-board .each-note:hover{
+  background-color: #F9F3E6;
+}
+.note-board .each-note h3{
+  font-size: 20px;
+  float: left;
+}
+.note-board .each-note .fa{
+  display: inline-block;
+  transform: translate(-5px,-15px);
+  font-size: 15px;
+  color: black;
+  float: left;
 }
