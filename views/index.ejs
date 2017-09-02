@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<title>jiabeng</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://unpkg.com/vue"></script>
+	 <link href='http://cdn.jsdelivr.net/semantic-ui/2.1.6/semantic.min.css' media='all' rel='stylesheet' type='text/css'/>
+	  <script src='https://cdn.jsdelivr.net/jquery/3.0.0-alpha1/jquery.min.js'></script>
+	  <script src='http://cdn.jsdelivr.net/semantic-ui/2.1.6/semantic.min.js'></script>
+	  <link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+	<div id="app">
+		<img class="profileImg" src="img/user-outlined.svg" alt="" v-on:click="showForm()">
+		<form class="ui form" :style="profileForm">
+		  <div class="field">
+		    <label>Account</label>
+		    <input type="text" name="account" placeholder="Account">
+		  </div>
+		  <div class="field">
+		    <label>Password</label>
+		    <input type="password" name="password" placeholder="password">
+		  </div>
+		  <button class="ui button" type="submit">Submit</button>
+		</form>
+		<div class="ui left fixed vertical menu">
+		 	 <div class="item">
+			    <img class="ui mini image" src="img/user-outlined.svg">
+			 </div>
+		  	 <a class="item">Testimonials</a>
+		  	 <a class="item">Sign-in</a>
+		  	 <div class="item">
+		    	<b>Projects</b>
+		   	 	<div class="menu">
+			    	<a class="item" v-for = "(p,i) in projects" @click = "titleActive(i)" :class="{active: p.active}">{{p.title}}</a>
+			    	<div class="ui input focus item">
+					  <input type="text" placeholder="new project..." v-model = "newTitle">
+					  <i class="fa fa-plus" aria-hidden="true" @click="addProject()"></i>
+					</div>
+			    </div>
+			</div>
+		</div>
+		<div class="posit" v-for= "(postit,i) in postits" v-bind:style="postitCss(postit)" v-on:mousedown ="selectId(i)">
+			<i class="fa fa-lock" aria-hidden="true" v-if = "postit.locked"></i>
+			<div class="text">
+				{{postit.text}}
+			</div>
+			<div class="colorList">
+				<div class="color" v-for="color in colorList" :style="colorStyle(color)" v-on:click="changeColor(color,i)" ></div>
+			</div>
+		</div>
+		<div class="eventBoard">
+			<input type="text" class="input" placeholder="say somthing ..." v-model = "newContent">
+			<button @click="post()">post</button>
+			<ul>
+				<li v-for = "(postit,i) in postits" v-on:mouseover="hover(i)" v-on:mouseleave="hover(i)">{{postit.text}}<i class="fa fa-times-circle" aria-hidden="true" @click="remove(i)"></i></li>
+			</ul>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+	<script src = "js/app.js"></script>
+</body>
+</html>
